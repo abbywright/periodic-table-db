@@ -18,6 +18,7 @@ else
   ELEMENT=$($PSQL "SELECT atomic_number, name, symbol, type, atomic_mass, melting_point_celsius, boiling_point_celsius FROM elements FULL JOIN properties USING(atomic_number) FULL JOIN types USING(type_id) WHERE name = '$1' OR symbol = '$1'")
 fi
 
+# if argument is not in database
 if [[ -z $ELEMENT ]]
 then
   echo "I could not find that element in the database."
