@@ -1,0 +1,79 @@
+Login: psql —username=freecodecamp —dbname=periodic_table
+
+Getting familiar with the periodic table database:
+elements
+| atomic_number | int / not null / primary key / unique
+| symbol | varchar(2)
+| name | varchar(40)
+
+properties
+| atomic_number | int / not null / primary key / unique
+| type | varchar(30)
+| weight | numeric(9, 6) / not null
+| melting_point | numeric
+| boiling_point | numeric
+
+Part 1: Fix the database (PSQL)
+ALTER TABLE properties RENAME COLUMN weight TO atomic_mass;
+ALTER TABLE properties RENAME COLUMN melting_point TO melting_point_celsius;
+ALTER TABLE properties RENAME COLUMN boiling_point TO boiling_point_celsius;
+ALTER TABLE properties ALTER COLUMN melting_point_celsius SET NOT NULL;
+ALTER TABLE properties ALTER COLUMN boiling_point_celsius SET NOT NULL;
+ALTER TABLE elements ADD UNIQUE(symbol, name);
+ALTER TABLE elements ALTER COLUMN symbol SET NOT NULL;
+ALTER TABLE elements ALTER COLUMN name SET NOT NULL;
+ALTER TABLE properties ADD FOREIGN KEY(atomic_number) REFERENCES elements(atomic_number);
+CREATE TABLE types(type_id INT NOT NULL PRIMARY KEY, type VARCHAR NOT NULL);
+INSERT INTO types(type_id, type) VALUES(1, 'nonmetal'), (2, 'metal'), (3, 'metalloid');
+ALTER TABLE properties ALTER COLUMN atomic_mass TYPE DECIMAL;
+UPDATE properties SET atomic_mass = atomic_mass::REAL;
+UPDATE elements SET symbol = initcap(symbol) WHERE symbol ~ '^[a-z]';
+ALTER TABLE properties ADD COLUMN type_id INT;
+ALTER TABLE properties ADD FOREIGN KEY(type_id) REFERENCES types(type_id);
+UPDATE properties SET type_id=1 WHERE type='nonmetal';
+UPDATE properties SET type_id=2 WHERE type='metal';
+UPDATE properties SET type_id=3 WHERE type='metalloid';
+ALTER TABLE properties ALTER COLUMN type_id SET NOT NULL;
+INSERT INTO elements(atomic_number, symbol, name) VALUES(9, 'F', 'Fluorine'), (10, 'Ne', 'Neon');
+INSERT INTO properties(atomic_number, type, atomic_mass, melting_point_celsius, boiling_point_celsius, type_id) VALUES(9, 'nonmetal', 18.998, -220, -188.1, 1), (10, 'nonmetal', 20.18, -248.6, -246.1, 1);
+DELETE FROM properties WHERE atomic_number = 1000;
+DELETE FROM elements WHERE atomic_number = 1000;
+ALTER TABLE properties ALTER COLUMN atomic_mass TYPE VARCHAR;
+ALTER TABLE properties DROP COLUMN type;
+
+Part 2: Create the git repository (Bash)
+mkdir periodic_table
+cd periodic_table
+git init
+git branch -m main
+touch element.sh
+chmod +x element.sh
+git add element.sh
+git commit -m "Initial commit"
+
+Part 3: Create the script (Shell)
+add query variable and input message
+git add element.sh
+git commit -m "feat: add query variable and initial input message"
+add if conditions for element input arguments
+git add element.sh
+git commit -m "feat: add input argument conditions"
+add invalid argument message
+git add element.sh
+git commit -m "feat: add invalid argument message"
+add element information sentence based on input
+git add element.sh
+git commit -m "feat: add element info sentence"
+fix database name in query variable
+git add element.sh
+git commit -m "fix: fix dbname"
+add final commits
+git add .
+git commit -m "fix: add final commits"
+fix output sentence
+git add .
+git commit -m "fix: fix output sentence and final commits"
+
+Save and open:
+pg_dump -cC --inserts -U freecodecamp periodic_table > periodic_table.sql
+psql -U postgres < periodic_table.sql (while in sql file)
