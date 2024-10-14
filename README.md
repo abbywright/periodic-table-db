@@ -6,7 +6,7 @@
 
 ### Part 3: Create the script
 
-### SUBTASKS
+### Subtasks
 
 - Rename the `weight` column to `atomic_mass`
 - Rename the `melting_point` column to `melting_point_celsius` and the `boiling_point` column to `boiling_point_celsius`
