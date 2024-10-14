@@ -37,4 +37,4 @@
 - The rest of the commit messages should start with `fix:`, `feat:`, `refactor:`, `chore:`, or `test:`
 - Delete the non existent element, whose `atomic_number` is `1000`, from the two tables
 - The `properties` table should not have a `type` column
-- Finish the project while on the `main` branch. Your working tree should be clean and you should not have any uncommitted changes
+- Finish the project while on the `main` branch. The working tree should be clean and there should not be any uncommitted changes
