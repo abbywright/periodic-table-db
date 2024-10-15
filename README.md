@@ -38,3 +38,5 @@
 - Delete the non existent element, whose `atomic_number` is `1000`, from the two tables
 - The `properties` table should not have a `type` column
 - Finish the project while on the `main` branch. The working tree should be clean and there should not be any uncommitted changes
+
+#### [Tutorial from FreeCodeCamp](https://www.freecodecamp.org/learn/relational-database/build-a-periodic-table-database-project/build-a-periodic-table-database)
